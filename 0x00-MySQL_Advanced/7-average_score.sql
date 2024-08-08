@@ -4,6 +4,8 @@
 
 -- Procedure ComputeAverageScoreForUser is taking 1 input:
 -- user_id, a users.id value (you can assume user_id is linked to an existing users)
+DELIMITER //
+
 CREATE PROCEDURE ComputeAverageScoreForUser(
     IN user_id INT
 )
@@ -15,17 +17,10 @@ BEGIN
     FROM corrections
     WHERE user_id = user_id;
 
-    -- Check if the user_id already exists in the average_scores table
-    IF EXISTS (SELECT 1 FROM average_scores WHERE user_id = user_id) THEN
-        -- Update the existing record with the new average score
-        UPDATE average_scores
-        SET average_score = avg_score
-        WHERE user_id = user_id;
-    ELSE
-        -- Insert a new record with the user_id and the computed average score
-        INSERT INTO average_scores (user_id, average_score)
-        VALUES (user_id, avg_score);
-    END IF;
+    -- Update the average_score in the users table
+    UPDATE users
+    SET average_score = avg_score
+    WHERE id = user_id;
 END //
 
 DELIMITER ;

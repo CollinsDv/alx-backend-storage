@@ -12,8 +12,8 @@ from pymongo.collection import Collection
 def list_all(mongo_collection: Collection) -> list:
     """list all documents in mongo_collection
     Args:
-        mango_collection (Collection) -> pymongo collection
-    Return:
+        mongo_collection (Collection) -> pymongo collection
+    Returns:
         list: List of documents in collection
     """
-    return list(mongo_collection.find())
+    return mongo_collection.find()
